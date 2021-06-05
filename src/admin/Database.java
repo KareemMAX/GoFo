@@ -1,13 +1,13 @@
 package admin;
 
 import player.Player;
-import playgroundOwner.PlaygroundOwner;
+import playgroundOwner.Playground;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
     public List<Player> playersDb = new ArrayList<>();
-    public List<PlaygroundOwner> playgroundsDb = new ArrayList<>();
+    public List<Playground> playgroundsDb = new ArrayList<>();
 
     static private Database _instance = null;
 
