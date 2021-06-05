@@ -1,5 +1,7 @@
 package admin;
 
+import playgroundOwner.Playground;
+
 import java.util.Scanner;
 
 public class AdminPanel {
@@ -30,6 +32,22 @@ public class AdminPanel {
     }
 
     private void onClickShowPendingPlaygrounds() {
+
+    }
+
+    private void onClickSuspend(Playground playground) {
+
+    }
+
+    private void onClickDelete(Playground playground) {
+
+    }
+
+    private void onClickActivate(Playground playground) {
+
+    }
+
+    private void onClickApprove(Playground playground) {
 
     }
 }
