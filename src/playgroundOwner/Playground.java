@@ -1,9 +1,13 @@
 package playgroundOwner;
 
 import player.Booking;
+import player.Player;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 /** Playground Class for GoFo App
@@ -89,6 +93,23 @@ public class Playground {
                 ", pricePerHour=" + pricePerHour +
                 ", cancellationPeriodDays=" + cancellationPeriodDays +
                 '}';
+    }
+
+    //TODO JavaDocs
+    public static Playground createPlaygroundFromUserInput(PlaygroundOwner owner){
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Name of the playground --> ");
+        String _name = scan.nextLine();
+        System.out.print("Address of the playground --> ");
+        String _address = scan.nextLine();
+        System.out.print("Describe the size of the playground --> ");
+        String _size = scan.nextLine();
+        System.out.print("Price per hour in float value --> ");
+        float _price = scan.nextFloat();
+        System.out.print("Period within cancelling a booking is allowed [In days] --> ");
+        int _cancel = scan.nextInt();
+        //TODO Handle DateTime stuff
+        return new Playground(_name, _address, true, owner, _size, new ArrayList<LocalDateTime>(), _price, _cancel);
     }
 
 
