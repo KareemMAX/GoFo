@@ -17,18 +17,25 @@ public class PlaygroundOwner extends Player {
     public List<Playground> ownedPlayground;
 
     /**
-     * PlaygroundOwner default constructor
+     * PlaygroundOwner constructor
      *
      */
-    public PlaygroundOwner(){
+    public PlaygroundOwner(String pw, String name, String email, String phoneNum, String defaultLocation){
+        super(pw, name, email, phoneNum, defaultLocation);
         ownedPlayground = new ArrayList<Playground>();
     }
 
     /**
      * PlaygroundOwner Parameterized constructor
-     * @param ownedPlayground Playground object that is owned by the PlaygroundOwner object.
+     * @param ownedPlayground   Playground object that is owned by the PlaygroundOwner object.
+     * @param pw                the password to access the player's account
+     * @param name              the username of the player
+     * @param email             the email of the player
+     * @param phoneNum          the phone number of the player
+     * @param defaultLocation   the location that the player prefer to play in
      */
-    public PlaygroundOwner(Playground ownedPlayground){
+    public PlaygroundOwner(Playground ownedPlayground, String pw, String name, String email, String phoneNum, String defaultLocation){
+        super(pw, name, email, phoneNum, defaultLocation);
         this.ownedPlayground = new ArrayList<Playground>();
         this.ownedPlayground.add(ownedPlayground);
     }
@@ -36,9 +43,15 @@ public class PlaygroundOwner extends Player {
     /**
      * PlaygroundOwner Parametrized constructor
      *
-     * @param ownedPlayground Collection of Playground objects that are owned by the PlaygroundOwner
+     * @param ownedPlayground   Collection of Playground objects that are owned by the PlaygroundOwner
+     * @param pw                the password to access the player's account
+     * @param name              the username of the player
+     * @param email             the email of the player
+     * @param phoneNum          the phone number of the player
+     * @param defaultLocation   the location that the player prefer to play in
      */
-    public PlaygroundOwner(Collection<Playground> ownedPlayground){
+    public PlaygroundOwner(Collection<Playground> ownedPlayground, String pw, String name, String email, String phoneNum, String defaultLocation){
+        super(pw, name, email, phoneNum, defaultLocation);
         this.ownedPlayground = new ArrayList<Playground>();
         this.ownedPlayground.addAll(ownedPlayground);
     }
@@ -48,7 +61,7 @@ public class PlaygroundOwner extends Player {
      *
      * @param toDel Playground Object that is desired to be deleted from the owned list.
      */
-    public void deletePlayground(Playground toDel){
+    public void deletePlayground(int toDel){
         this.ownedPlayground.remove(toDel);
     }
 

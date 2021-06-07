@@ -41,14 +41,14 @@ public class Playground {
     /**
      * Playground parameterized constructor
      *
-     * @param address String object that indicates the Address of playground
-     * @param availableHours ArrayList of LocalDateTime object that carries the Hours available for booking
-     * @param cancellationPeriodDays  Integer value that indicates the period in which bookings are allowed to be canceled in days.
-     * @param isSuspended Boolean value that indicates whether the playground is suspended or not.
-     * @param owner Player object indicates the owner of the playground
-     * @param playgroundName String object indicates the commercial name of the playground.
-     * @param pricePerHour Float value indicates how much the playground charges per hour.
-     * @param size String object describes the dimensions of the playground.
+     * @param address                   String object that indicates the Address of playground
+     * @param availableHours            ArrayList of LocalDateTime object that carries the Hours available for booking
+     * @param cancellationPeriodDays    Integer value that indicates the period in which bookings are allowed to be canceled in days.
+     * @param isSuspended               Boolean value that indicates whether the playground is suspended or not.
+     * @param owner                     Player object indicates the owner of the playground
+     * @param playgroundName            String object indicates the commercial name of the playground.
+     * @param pricePerHour              Float value indicates how much the playground charges per hour.
+     * @param size                      String object describes the dimensions of the playground.
      */
 
     public Playground(String playgroundName,
@@ -94,23 +94,5 @@ public class Playground {
                 ", cancellationPeriodDays=" + cancellationPeriodDays +
                 '}';
     }
-
-    //TODO JavaDocs
-    public static Playground createPlaygroundFromUserInput(PlaygroundOwner owner){
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Name of the playground --> ");
-        String _name = scan.nextLine();
-        System.out.print("Address of the playground --> ");
-        String _address = scan.nextLine();
-        System.out.print("Describe the size of the playground --> ");
-        String _size = scan.nextLine();
-        System.out.print("Price per hour in float value --> ");
-        float _price = scan.nextFloat();
-        System.out.print("Period within cancelling a booking is allowed [In days] --> ");
-        int _cancel = scan.nextInt();
-        //TODO Handle DateTime stuff
-        return new Playground(_name, _address, true, owner, _size, new ArrayList<LocalDateTime>(), _price, _cancel);
-    }
-
 
 }

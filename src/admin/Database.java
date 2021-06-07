@@ -23,7 +23,7 @@ public class Database {
      *
      * @return Singleton instance
      */
-    static Database getInstance() {
+    public static Database getInstance() {
         if(_instance == null) {
             _instance = new Database();
         }

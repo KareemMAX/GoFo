@@ -1,5 +1,8 @@
 package playgroundOwner;
 
+import admin.Database;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -14,9 +17,11 @@ public class PlaygroundOwnerPanel{
     private Scanner scan;
     public PlaygroundOwner owner;
     public Playground playgroundOfInterset;
+    public Database db;
 
     public PlaygroundOwnerPanel(PlaygroundOwner owner){
         this.owner = owner;
+        db = Database.getInstance();
         scan = new Scanner(System.in);
         while (true){
             System.out.println("--- Playground Owner Panel ---");
@@ -49,6 +54,13 @@ public class PlaygroundOwnerPanel{
         if (choice == -1) return;
         try{
             playgroundOfInterset = owner.ownedPlayground.get(choice - 1);
+            int dbIndexOfInterset = -1;
+            for (int i = 0; i < db.playgroundsDb.size(); i++){
+                if (db.playgroundsDb.get(i).equals(playgroundOfInterset)) dbIndexOfInterset = i;
+            }
+
+            //TODO For Debug perposes
+            if (dbIndexOfInterset == -1) System.out.println("CRITICAL ERROR MISSING PLAYGROUND FROM DB");
             // TODO --> handle playgroundOfInterset
         }catch (IndexOutOfBoundsException e){
             System.out.println("Invalid playground was chosen, Returning to Playground Owner Panel");
@@ -69,20 +81,51 @@ public class PlaygroundOwnerPanel{
         if (choice == -1) return;
         try{
             playgroundOfInterset = owner.ownedPlayground.get(choice - 1);
+            int dbIndexOfInterset = -1;
+            for (int i = 0; i < db.playgroundsDb.size(); i++){
+                if (db.playgroundsDb.get(i).equals(playgroundOfInterset)) dbIndexOfInterset = i;
+            }
+
+            //TODO for Debug purposes
+            if (dbIndexOfInterset == -1) System.out.println("CRITICAL ERROR MISSING PLAYGROUND FROM DB");
             // TODO --> handle playgroundOfInterset
         }catch (IndexOutOfBoundsException e){
             System.out.println("Invalid playground was chosen, Returning to Playground Owner Panel");
         }
     }
 
+    /**
+     * Creates a playground from user input and adds it to the owned playground list
+     * */
+
     public void onClickAddPlayground(){
-        owner.ownedPlayground.add(Playground.createPlaygroundFromUserInput(owner));
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Name of the playground --> ");
+        String _name = scan.nextLine();
+        System.out.print("Address of the playground --> ");
+        String _address = scan.nextLine();
+        System.out.print("Describe the size of the playground --> ");
+        String _size = scan.nextLine();
+        System.out.print("Price per hour in float value --> ");
+        float _price = scan.nextFloat();
+        System.out.print("Period within cancelling a booking is allowed [In days] --> ");
+        int _cancel = scan.nextInt();
+        Playground temp = new Playground(_name, _address, true, owner, _size, new ArrayList<LocalDateTime>(), _price, _cancel);
+        owner.ownedPlayground.add(temp);
+        db.playgroundsDb.add(temp);
     }
 
+    /**
+     * Switch the the suspension state
+     */
     public void onClickSuspendPlayground(){
         playgroundOfInterset.isSuspended = !playgroundOfInterset.isSuspended;
     }
 
+    /**
+     * Deletes the current playground from owned list
+     * @param index     Index of playground desired to be deleted
+     * */
     public void onClickDeletePlayground(int index){
         owner.ownedPlayground.remove(index);
     }
