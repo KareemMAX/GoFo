@@ -19,6 +19,11 @@ public class PlaygroundOwnerPanel{
     public Playground playgroundOfInterset;
     public Database db;
 
+    /**
+     * Entery point of the Playground owner's panel
+     *
+     */
+
     public PlaygroundOwnerPanel(PlaygroundOwner owner){
         this.owner = owner;
         db = Database.getInstance();
@@ -44,6 +49,10 @@ public class PlaygroundOwnerPanel{
         }
     }
 
+    /**
+     * Shows a list of all owned playgrounds and handles operations on them.
+     * */
+
     public void listOwnedPlaygrounds(){
         for (int i = 0; i < owner.ownedPlayground.size(); i++){
             System.out.println("--- Playground Number " + Integer.toString(i + 1) + " ---");
@@ -61,11 +70,24 @@ public class PlaygroundOwnerPanel{
 
             //TODO For Debug perposes
             if (dbIndexOfInterset == -1) System.out.println("CRITICAL ERROR MISSING PLAYGROUND FROM DB");
-            // TODO --> handle playgroundOfInterset
+
+            System.out.println("1.Delete Playground");
+            System.out.println("2.Suspend Playground");
+            System.out.println("3.Return");
+            int choice1 = scan.nextInt();
+            if (choice1 == 1) onClickDeletePlayground(choice);
+            else if (choice1 == 2) onClickSuspendPlayground();
+            else return;
+
         }catch (IndexOutOfBoundsException e){
             System.out.println("Invalid playground was chosen, Returning to Playground Owner Panel");
         }
     }
+
+    /**
+     * Shows a list of suspended owned playgrounds and handles operations on them
+     *
+     */
 
     public void listSuspendedPlaygrounds(){
         int j = 0;
@@ -89,6 +111,15 @@ public class PlaygroundOwnerPanel{
             //TODO for Debug purposes
             if (dbIndexOfInterset == -1) System.out.println("CRITICAL ERROR MISSING PLAYGROUND FROM DB");
             // TODO --> handle playgroundOfInterset
+
+            System.out.println("1.Delete Playground");
+            System.out.println("2.Suspend Playground");
+            System.out.println("3.Return");
+            int choice1 = scan.nextInt();
+            if (choice1 == 1) onClickDeletePlayground(choice);
+            else if (choice1 == 2) onClickSuspendPlayground();
+            else return;
+
         }catch (IndexOutOfBoundsException e){
             System.out.println("Invalid playground was chosen, Returning to Playground Owner Panel");
         }
@@ -128,5 +159,12 @@ public class PlaygroundOwnerPanel{
      * */
     public void onClickDeletePlayground(int index){
         owner.ownedPlayground.remove(index);
+        int dbIndexOfInterset = -1;
+        for (int i = 0; i < db.playgroundsDb.size(); i++){
+            if (db.playgroundsDb.get(i).equals(playgroundOfInterset)) dbIndexOfInterset = i;
+        }
+
+        if (dbIndexOfInterset == -1) System.out.println("CRITICAL ERROR IN onClickDeletePlayground");
+        db.playgroundsDb.remove(dbIndexOfInterset);
     }
 }
