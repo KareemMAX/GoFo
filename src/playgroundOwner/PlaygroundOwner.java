@@ -57,6 +57,19 @@ public class PlaygroundOwner extends Player {
     }
 
     /**
+     * PlaygroundOwner constructor with a player object. Upgrades player to playground owner.
+     *
+     * @param player The original player
+     * @param password The player's password
+     */
+    public PlaygroundOwner(Player player, String password) {
+        super(password, player.name, player.email, player.phoneNum, player.defaultLocation);
+        eWalletBalance = player.eWalletBalance;
+        favoriteTeam = player.favoriteTeam;
+        bookingList = player.bookingList;
+    }
+
+    /**
      * Deletes one of the owned playgrounds
      *
      * @param toDel Playground Object that is desired to be deleted from the owned list.

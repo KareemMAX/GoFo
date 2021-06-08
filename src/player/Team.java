@@ -1,5 +1,6 @@
 package player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** Player Class for GoFo App
@@ -9,5 +10,5 @@ import java.util.List;
  * Course: Software Engineering 1 CS251 2020/2021 - Homework 4 Final Draft
  */
 public class Team {
-    public List<String> playerName ,playerEmail;
+    public List<String> playerName = new ArrayList<> (),playerEmail = new ArrayList<> ();
 }

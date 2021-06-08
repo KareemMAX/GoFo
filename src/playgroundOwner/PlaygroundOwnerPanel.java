@@ -16,11 +16,11 @@ import java.util.Scanner;
 public class PlaygroundOwnerPanel{
     private Scanner scan;
     public PlaygroundOwner owner;
-    public Playground playgroundOfInterset;
+    public Playground playgroundOfInterest;
     public Database db;
 
     /**
-     * Entery point of the Playground owner's panel
+     * Entry point of the Playground owner's panel
      *
      */
 
@@ -39,12 +39,15 @@ public class PlaygroundOwnerPanel{
             switch (choice){
                 case 1:
                     listOwnedPlaygrounds();
+                    break;
                 case 2:
                     listSuspendedPlaygrounds();
+                    break;
                 case 3:
                     onClickAddPlayground();
-                case 4:
                     break;
+                case 4:
+                    return;
             }
         }
     }
@@ -62,10 +65,10 @@ public class PlaygroundOwnerPanel{
         int choice = scan.nextInt();
         if (choice == -1) return;
         try{
-            playgroundOfInterset = owner.ownedPlayground.get(choice - 1);
+            playgroundOfInterest = owner.ownedPlayground.get(choice - 1);
             int dbIndexOfInterset = -1;
             for (int i = 0; i < db.playgroundsDb.size(); i++){
-                if (db.playgroundsDb.get(i).equals(playgroundOfInterset)) dbIndexOfInterset = i;
+                if (db.playgroundsDb.get(i).equals(playgroundOfInterest)) dbIndexOfInterset = i;
             }
 
             //TODO For Debug perposes
@@ -102,10 +105,10 @@ public class PlaygroundOwnerPanel{
         int choice = scan.nextInt();
         if (choice == -1) return;
         try{
-            playgroundOfInterset = owner.ownedPlayground.get(choice - 1);
+            playgroundOfInterest = owner.ownedPlayground.get(choice - 1);
             int dbIndexOfInterset = -1;
             for (int i = 0; i < db.playgroundsDb.size(); i++){
-                if (db.playgroundsDb.get(i).equals(playgroundOfInterset)) dbIndexOfInterset = i;
+                if (db.playgroundsDb.get(i).equals(playgroundOfInterest)) dbIndexOfInterset = i;
             }
 
             //TODO for Debug purposes
@@ -150,7 +153,7 @@ public class PlaygroundOwnerPanel{
      * Switch the the suspension state
      */
     public void onClickSuspendPlayground(){
-        playgroundOfInterset.isSuspended = !playgroundOfInterset.isSuspended;
+        playgroundOfInterest.isSuspended = !playgroundOfInterest.isSuspended;
     }
 
     /**
@@ -161,7 +164,7 @@ public class PlaygroundOwnerPanel{
         owner.ownedPlayground.remove(index);
         int dbIndexOfInterset = -1;
         for (int i = 0; i < db.playgroundsDb.size(); i++){
-            if (db.playgroundsDb.get(i).equals(playgroundOfInterset)) dbIndexOfInterset = i;
+            if (db.playgroundsDb.get(i).equals(playgroundOfInterest)) dbIndexOfInterset = i;
         }
 
         if (dbIndexOfInterset == -1) System.out.println("CRITICAL ERROR IN onClickDeletePlayground");
