@@ -23,7 +23,8 @@ public class Player {
     public List<Team> favoriteTeam = new ArrayList<> ();
     public List<Booking> bookingList = new ArrayList<> ();
     public int numOfBooking = 0;
-    public static int id;
+    int id;
+    public static int idCount;
     public float eWalletBalance;
     Database data;
 
@@ -42,7 +43,7 @@ public class Player {
         this.email = email;
         this.phoneNum = phoneNum;
         this.defaultLocation = defaultLocation;
-        this.id++;
+        this.id = idCount++;
     }
 
     /**
@@ -55,7 +56,6 @@ public class Player {
         while (i++ < data.playgroundsDb.size ()) {
             if(data.playgroundsDb.get (i).playgroundName == name) return data.playgroundsDb.get (i);
         }
-        System.out.println ("Playground name is wrong or not valid\n");
         return null;
     }
 
@@ -66,7 +66,7 @@ public class Player {
      * @param reqDate desired date to play 
      * @param reqHours desired amount of hours to play
      */
-    public void newBooking(Playground reqPlayground, LocalDateTime reqDate, float reqHours) {
+    public void newBooking(Playground reqPlayground, LocalDateTime reqDate, float reqHours) throws Exception {
         Boolean aval = false;
         int i = 0;
         while (i++ < reqPlayground.availableHours.size ()) {
@@ -76,31 +76,20 @@ public class Player {
             }
         }
         if(aval) {
-            System.out.println ("Enter which team id you want to book with.\n");
+           /* System.out.println ("Enter which team id you want to book with.\n");
             int teamNum;
             Scanner in = new Scanner (System.in);
-            teamNum = in.nextInt ();
-            Booking book = new Booking (reqPlayground, favoriteTeam.get (teamNum), reqDate, reqHours, this, numOfBooking++);
+            teamNum = in.nextInt ();*/
+            Booking book = new Booking (reqPlayground, favoriteTeam.get (0), reqDate, reqHours, this, numOfBooking++);
             System.out.println ("The cost is : " + book.getMoney (reqHours));
             if(eWalletBalance - book.getMoney (reqHours) >= 0) {
-                System.out.println ("Press y/n to continue.");
-                String choice = in.next ();
-                switch (choice) {
-                    case "y": {
-                        System.out.println ("Current Balance is: " + (eWalletBalance - book.getMoney (reqHours)));
-                        eWalletBalance -= book.getMoney (reqHours);
-                        break;
-                    }
-                    case "n": {
-                        System.out.println ("Operation is canceled.");
-                        break;
-                    }
-                }
+                System.out.println ("Current Balance is: " + (eWalletBalance - book.getMoney (reqHours)));
+                eWalletBalance -= book.getMoney (reqHours);
             } else {
-                System.out.println ("Insufficient funds");
+                throw new Exception ("Insufficient funds");
             }
         } else {
-            System.out.println ("The selected date/time is not valid.\n");
+            throw new Exception ("The selected date/time is not valid.\n");
         }
 
     }
@@ -110,12 +99,12 @@ public class Player {
      *
      * @param idBook the id of the booking that is needed to be canceled
      */
-    public void cancelBooking(int idBook) {
+    public void cancelBooking(int idBook) throws Exception {
         if(bookingList.get (idBook).playground.cancellationPeriodDays < 0) {
             eWalletBalance += bookingList.get (idBook).totalCost;
             bookingList.remove (idBook);
         } else {
-            System.out.println ("Cancellation period is over.");
+            throw new Exception ("Cancellation period is over.");
         }
     }
 
@@ -125,12 +114,12 @@ public class Player {
      * @param playerToTrans the desired player to transfer funds to
      * @param amountMoney   the amount of money desired to transfer
      */
-    public void sendFunds(Player playerToTrans, float amountMoney) {
+    public void sendFunds(Player playerToTrans, float amountMoney) throws Exception {
         if(this.eWalletBalance >= amountMoney) {
             playerToTrans.eWalletBalance += amountMoney;
             this.eWalletBalance -= amountMoney;
         } else {
-            System.out.println ("Insufficient funds");
+            throw new Exception ("Insufficient funds");
         }
     }
 }
