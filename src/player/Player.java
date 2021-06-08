@@ -24,7 +24,7 @@ public class Player {
     public List<Booking> bookingList = new ArrayList<> ();
     public int numOfBooking = 0;
     public static int id;
-    float eWalletBalance;
+    public float eWalletBalance;
     Database data;
 
     /**
