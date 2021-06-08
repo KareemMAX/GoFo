@@ -7,10 +7,20 @@ import playgroundOwner.PlaygroundOwner;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+/**
+ * @author Jonathan Saad
+ * @version 1.00 2021/6/9
+ * Course: Software Engineering 1 CS251 2020/2021 - Homework 4 Final Draft
+ */
 public class UserInterface {
     private Scanner scan;
     public Player player;
     public Database db;
+
+    /**
+     * Entry point of the Player's panel
+     *
+     */
     public UserInterface (Player player) {
         this.player = player;
         db = Database.getInstance();
@@ -84,13 +94,20 @@ public class UserInterface {
 
             }
         }
-
+    /**
+     * Shows a list of all playgrounds.
+     * */
     public void  listPlayGrounds(){
         for (int i = 0; i < db.playgroundsDb.size (); i++){
             System.out.println("--- Playground Number " + Integer.toString(i + 1) + " ---");
             System.out.println(db.playgroundsDb.get(i).toString());
         }
     }
+
+    /**
+     * Search playground by its name
+     * @param name the name of playground that we needed to be found
+     */
     public void searchPlayground(String name){
         if(player.playgroundSearch(name)==null) {
             System.out.println ("playground Not found");
