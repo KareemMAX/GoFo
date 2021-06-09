@@ -2,6 +2,7 @@ package admin;
 
 import player.Player;
 import playgroundOwner.Playground;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,9 @@ import java.util.List;
  * Course: Software Engineering 1 CS251 2020/2021 - Homework 4 Final Draft
  */
 public class Database {
+    static private Database _instance = null;
     public List<Player> playersDb = new ArrayList<>();
     public List<Playground> playgroundsDb = new ArrayList<>();
-
-    static private Database _instance = null;
 
     /**
      * Gets the singleton instance
@@ -24,7 +24,7 @@ public class Database {
      * @return Singleton instance
      */
     public static Database getInstance() {
-        if(_instance == null) {
+        if (_instance == null) {
             _instance = new Database();
         }
 

@@ -19,7 +19,7 @@ public class AdminPanel {
      * Initiate the admin panel
      */
     public void show() {
-        while(true){
+        while (true) {
             System.out.println("Welcome to GoFo admin panel");
             System.out.println("Choose an operation:");
             System.out.println("1- Show all playgrounds");
@@ -57,7 +57,7 @@ public class AdminPanel {
      */
     private void onClickShowPendingPlaygrounds() {
         for (int i = 0; i < database.playgroundsDb.size(); i++) {
-            if (!database.playgroundsDb.get(i).isApproved){
+            if (!database.playgroundsDb.get(i).isApproved) {
                 System.out.print(i);
                 System.out.println("-");
                 System.out.println(database.playgroundsDb.get(i));
@@ -73,7 +73,7 @@ public class AdminPanel {
     private void handlePlayground() {
         System.out.println("Choose a playground ID to edit or -1 to exit:");
         int playgroundId = input.nextInt();
-        if(playgroundId == -1) return;
+        if (playgroundId == -1) return;
         Playground pg = database.playgroundsDb.get(playgroundId);
 
         System.out.println(pg);
@@ -106,12 +106,12 @@ public class AdminPanel {
      * Handle suspend playground choice
      */
     private void onClickSuspend(Playground playground) {
-        if(!playground.isApproved) {
+        if (!playground.isApproved) {
             System.out.println("Playground isn't approved yet, no operations are allowed");
             return;
         }
 
-        if(playground.isSuspended) {
+        if (playground.isSuspended) {
             System.out.println("Playground is already suspended");
         }
 
@@ -129,12 +129,12 @@ public class AdminPanel {
      * Handle activate playground choice
      */
     private void onClickActivate(Playground playground) {
-        if(!playground.isApproved) {
+        if (!playground.isApproved) {
             System.out.println("Playground isn't approved yet, no operations are allowed");
             return;
         }
 
-        if(!playground.isSuspended) {
+        if (!playground.isSuspended) {
             System.out.println("Playground is already active");
         }
 
@@ -145,7 +145,7 @@ public class AdminPanel {
      * Handle approve playground choice
      */
     private void onClickApprove(Playground playground) {
-        if(playground.isApproved) {
+        if (playground.isApproved) {
             System.out.println("Playground is already approved");
         }
 

@@ -1,34 +1,35 @@
 package playgroundOwner;
 
 import admin.Database;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-/** PlaygroundOwnerPanel Class for GoFo App
+/**
+ * PlaygroundOwnerPanel Class for GoFo App
  *
  * @author Mohamed Ashraf
  * @version 1.00 2021/5/6
  * Course: Software Engineering 1 CS251 2020/2021 - Homework 4 Final Draft
  */
 
-public class PlaygroundOwnerPanel{
-    private Scanner scan;
+public class PlaygroundOwnerPanel {
     public PlaygroundOwner owner;
     public Playground playgroundOfInterest;
     public Database db;
+    private Scanner scan;
 
     /**
      * Entry point of the Playground owner's panel
-     *
      */
 
-    public PlaygroundOwnerPanel(PlaygroundOwner owner){
+    public PlaygroundOwnerPanel(PlaygroundOwner owner) {
         this.owner = owner;
         db = Database.getInstance();
         scan = new Scanner(System.in);
-        while (true){
+        while (true) {
             System.out.println("--- Playground Owner Panel ---");
             System.out.println("------------------------------");
             System.out.println("1. List Owned Playgrounds");
@@ -36,7 +37,7 @@ public class PlaygroundOwnerPanel{
             System.out.println("3. Add a New Playground");
             System.out.println("4. Return to Player Panel");
             int choice = scan.nextInt();
-            switch (choice){
+            switch (choice) {
                 case 1:
                     listOwnedPlaygrounds();
                     break;
@@ -54,20 +55,20 @@ public class PlaygroundOwnerPanel{
 
     /**
      * Shows a list of all owned playgrounds and handles operations on them.
-     * */
+     */
 
-    public void listOwnedPlaygrounds(){
-        for (int i = 0; i < owner.ownedPlayground.size(); i++){
+    public void listOwnedPlaygrounds() {
+        for (int i = 0; i < owner.ownedPlayground.size(); i++) {
             System.out.println("--- Playground Number " + Integer.toString(i + 1) + " ---");
             System.out.println(owner.ownedPlayground.get(i).toString());
         }
         System.out.println("Which playground would you like to select ? (Input -1 to return)");
         int choice = scan.nextInt();
         if (choice == -1) return;
-        try{
+        try {
             playgroundOfInterest = owner.ownedPlayground.get(choice - 1);
             int dbIndexOfInterset = -1;
-            for (int i = 0; i < db.playgroundsDb.size(); i++){
+            for (int i = 0; i < db.playgroundsDb.size(); i++) {
                 if (db.playgroundsDb.get(i).equals(playgroundOfInterest)) dbIndexOfInterset = i;
             }
 
@@ -82,19 +83,18 @@ public class PlaygroundOwnerPanel{
             else if (choice1 == 2) onClickSuspendPlayground();
             else return;
 
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid playground was chosen, Returning to Playground Owner Panel");
         }
     }
 
     /**
      * Shows a list of suspended owned playgrounds and handles operations on them
-     *
      */
 
-    public void listSuspendedPlaygrounds(){
+    public void listSuspendedPlaygrounds() {
         int j = 0;
-        for (int i = 0; i < owner.ownedPlayground.size(); i++){
+        for (int i = 0; i < owner.ownedPlayground.size(); i++) {
             if (!owner.ownedPlayground.get(i).isSuspended) j++;
             else {
                 System.out.println("--- Playground Number " + Integer.toString(i + 1) + " ---");
@@ -104,10 +104,10 @@ public class PlaygroundOwnerPanel{
         System.out.println("Which playground would you like to select ? (Input -1 to return)");
         int choice = scan.nextInt();
         if (choice == -1) return;
-        try{
+        try {
             playgroundOfInterest = owner.ownedPlayground.get(choice - 1);
             int dbIndexOfInterset = -1;
-            for (int i = 0; i < db.playgroundsDb.size(); i++){
+            for (int i = 0; i < db.playgroundsDb.size(); i++) {
                 if (db.playgroundsDb.get(i).equals(playgroundOfInterest)) dbIndexOfInterset = i;
             }
 
@@ -123,16 +123,16 @@ public class PlaygroundOwnerPanel{
             else if (choice1 == 2) onClickSuspendPlayground();
             else return;
 
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid playground was chosen, Returning to Playground Owner Panel");
         }
     }
 
     /**
      * Creates a playground from user input and adds it to the owned playground list
-     * */
+     */
 
-    public void onClickAddPlayground(){
+    public void onClickAddPlayground() {
         Scanner scan = new Scanner(System.in);
         System.out.print("Name of the playground --> ");
         String _name = scan.nextLine();
@@ -152,18 +152,19 @@ public class PlaygroundOwnerPanel{
     /**
      * Switch the the suspension state
      */
-    public void onClickSuspendPlayground(){
+    public void onClickSuspendPlayground() {
         playgroundOfInterest.isSuspended = !playgroundOfInterest.isSuspended;
     }
 
     /**
      * Deletes the current playground from owned list
-     * @param index     Index of playground desired to be deleted
-     * */
-    public void onClickDeletePlayground(int index){
+     *
+     * @param index Index of playground desired to be deleted
+     */
+    public void onClickDeletePlayground(int index) {
         owner.ownedPlayground.remove(index);
         int dbIndexOfInterset = -1;
-        for (int i = 0; i < db.playgroundsDb.size(); i++){
+        for (int i = 0; i < db.playgroundsDb.size(); i++) {
             if (db.playgroundsDb.get(i).equals(playgroundOfInterest)) dbIndexOfInterset = i;
         }
 

@@ -1,12 +1,14 @@
 package playgroundOwner;
 
 import player.Player;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.ArrayList;
 
 
-/** PlaygroundOwner Class for GoFo App
+/**
+ * PlaygroundOwner Class for GoFo App
  *
  * @author Mohamed Ashraf
  * @version 1.00 2021/5/6
@@ -18,23 +20,23 @@ public class PlaygroundOwner extends Player {
 
     /**
      * PlaygroundOwner constructor
-     *
      */
-    public PlaygroundOwner(String pw, String name, String email, String phoneNum, String defaultLocation){
+    public PlaygroundOwner(String pw, String name, String email, String phoneNum, String defaultLocation) {
         super(pw, name, email, phoneNum, defaultLocation);
         ownedPlayground = new ArrayList<Playground>();
     }
 
     /**
      * PlaygroundOwner Parameterized constructor
-     * @param ownedPlayground   Playground object that is owned by the PlaygroundOwner object.
-     * @param pw                the password to access the player's account
-     * @param name              the username of the player
-     * @param email             the email of the player
-     * @param phoneNum          the phone number of the player
-     * @param defaultLocation   the location that the player prefer to play in
+     *
+     * @param ownedPlayground Playground object that is owned by the PlaygroundOwner object.
+     * @param pw              the password to access the player's account
+     * @param name            the username of the player
+     * @param email           the email of the player
+     * @param phoneNum        the phone number of the player
+     * @param defaultLocation the location that the player prefer to play in
      */
-    public PlaygroundOwner(Playground ownedPlayground, String pw, String name, String email, String phoneNum, String defaultLocation){
+    public PlaygroundOwner(Playground ownedPlayground, String pw, String name, String email, String phoneNum, String defaultLocation) {
         super(pw, name, email, phoneNum, defaultLocation);
         this.ownedPlayground = new ArrayList<Playground>();
         this.ownedPlayground.add(ownedPlayground);
@@ -43,14 +45,14 @@ public class PlaygroundOwner extends Player {
     /**
      * PlaygroundOwner Parametrized constructor
      *
-     * @param ownedPlayground   Collection of Playground objects that are owned by the PlaygroundOwner
-     * @param pw                the password to access the player's account
-     * @param name              the username of the player
-     * @param email             the email of the player
-     * @param phoneNum          the phone number of the player
-     * @param defaultLocation   the location that the player prefer to play in
+     * @param ownedPlayground Collection of Playground objects that are owned by the PlaygroundOwner
+     * @param pw              the password to access the player's account
+     * @param name            the username of the player
+     * @param email           the email of the player
+     * @param phoneNum        the phone number of the player
+     * @param defaultLocation the location that the player prefer to play in
      */
-    public PlaygroundOwner(Collection<Playground> ownedPlayground, String pw, String name, String email, String phoneNum, String defaultLocation){
+    public PlaygroundOwner(Collection<Playground> ownedPlayground, String pw, String name, String email, String phoneNum, String defaultLocation) {
         super(pw, name, email, phoneNum, defaultLocation);
         this.ownedPlayground = new ArrayList<Playground>();
         this.ownedPlayground.addAll(ownedPlayground);
@@ -59,7 +61,7 @@ public class PlaygroundOwner extends Player {
     /**
      * PlaygroundOwner constructor with a player object. Upgrades player to playground owner.
      *
-     * @param player The original player
+     * @param player   The original player
      * @param password The player's password
      */
     public PlaygroundOwner(Player player, String password) {
@@ -74,7 +76,7 @@ public class PlaygroundOwner extends Player {
      *
      * @param toDel Playground Object that is desired to be deleted from the owned list.
      */
-    public void deletePlayground(int toDel){
+    public void deletePlayground(int toDel) {
         this.ownedPlayground.remove(toDel);
     }
 
@@ -83,18 +85,17 @@ public class PlaygroundOwner extends Player {
      *
      * @param toAdd Playground object that is desired to add to the owned list.
      */
-    public void addPlayground(Playground toAdd){
+    public void addPlayground(Playground toAdd) {
         this.ownedPlayground.add(toAdd);
     }
 
     /**
      * Switched the suspended state for a Playground object
      *
-     *
      * @param toSuspend Playground object that is desired to be suspended / unsuspended.
      *                  It must be Approved by an admin else the playground is suspended automatically.
      */
-    public void suspendPlayground(Playground toSuspend){
+    public void suspendPlayground(Playground toSuspend) {
         if (toSuspend.isApproved) toSuspend.isSuspended = !toSuspend.isSuspended;
         else toSuspend.isSuspended = false;
     }
