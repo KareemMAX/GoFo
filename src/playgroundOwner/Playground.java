@@ -22,7 +22,7 @@ public class Playground {
     public PlaygroundOwner owner;
     public String size;
     public List<Booking> bookings;
-    public Boolean isApproved;
+    public Boolean isApproved = false;
     public List<LocalDateTime> availableHours;
     public float pricePerHour;
     public int cancellationPeriodDays;

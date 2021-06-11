@@ -2,7 +2,6 @@ package player;
 
 import admin.Database;
 import playgroundOwner.Playground;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  * @version 1.00 2021/6/6
  * Course: Software Engineering 1 CS251 2020/2021 - Homework 4 Final Draft
  */
-public class Player {
+public class Player extends UserStatus{
     public static int idCount;
     public String name, email, phoneNum, defaultLocation;
     public List<Team> favoriteTeam = new ArrayList<>();
@@ -23,7 +22,7 @@ public class Player {
     public float eWalletBalance;
     int id;
     Database data;
-    private String password;
+    public String password;
 
     /**
      * Player parameterized constructor
@@ -35,6 +34,7 @@ public class Player {
      * @param defaultLocation the location that the player prefer to play in
      */
     public Player(String password, String name, String email, String phoneNum, String defaultLocation) {
+        currentStatus = status.player;
         this.password = password;
         this.name = name;
         this.email = email;

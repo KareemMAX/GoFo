@@ -31,7 +31,7 @@ public class UserInterface {
             System.out.println("3. Booking menu");
             System.out.println("4. Send funds");
             System.out.println("5. Check balance");
-            System.out.println("6. Exit");
+            System.out.println("7. Exit");
             int choice = scan.nextInt();
             switch (choice) {
                 case 1:
@@ -93,6 +93,7 @@ public class UserInterface {
         }
     }
 
+
     /**
      * Shows a list of all playgrounds.
      */
@@ -109,7 +110,7 @@ public class UserInterface {
      * @param name the name of playground that we needed to be found
      */
     public void searchPlayground(String name) {
-        if (player.playgroundSearch(name) == null) {
+        if (player == null || player.playgroundSearch(name) == null) {
             System.out.println("playground Not found");
             return;
         } else {

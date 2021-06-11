@@ -40,6 +40,7 @@ public class PlaygroundOwner extends Player {
         super(pw, name, email, phoneNum, defaultLocation);
         this.ownedPlayground = new ArrayList<Playground>();
         this.ownedPlayground.add(ownedPlayground);
+        currentStatus = status.owner;
     }
 
     /**
@@ -56,6 +57,7 @@ public class PlaygroundOwner extends Player {
         super(pw, name, email, phoneNum, defaultLocation);
         this.ownedPlayground = new ArrayList<Playground>();
         this.ownedPlayground.addAll(ownedPlayground);
+        currentStatus = status.owner;
     }
 
     /**
@@ -69,6 +71,7 @@ public class PlaygroundOwner extends Player {
         eWalletBalance = player.eWalletBalance;
         favoriteTeam = player.favoriteTeam;
         bookingList = player.bookingList;
+        currentStatus = status.owner;
     }
 
     /**

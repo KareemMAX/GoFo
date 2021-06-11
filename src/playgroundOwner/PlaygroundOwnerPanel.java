@@ -26,8 +26,10 @@ public class PlaygroundOwnerPanel {
      */
 
     public PlaygroundOwnerPanel(PlaygroundOwner owner) {
-        this.owner = owner;
         db = Database.getInstance();
+        for (int i = 0; i < db.playersDb.size(); i++){
+            if (owner.name.equals(db.playersDb.get(i).name)) this.owner = (PlaygroundOwner) db.playersDb.get(i);
+        }
         scan = new Scanner(System.in);
         while (true) {
             System.out.println("--- Playground Owner Panel ---");
@@ -113,7 +115,6 @@ public class PlaygroundOwnerPanel {
 
             //TODO for Debug purposes
             if (dbIndexOfInterset == -1) System.out.println("CRITICAL ERROR MISSING PLAYGROUND FROM DB");
-            // TODO --> handle playgroundOfInterset
 
             System.out.println("1.Delete Playground");
             System.out.println("2.Suspend Playground");
