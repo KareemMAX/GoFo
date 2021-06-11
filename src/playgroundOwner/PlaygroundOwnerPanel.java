@@ -2,8 +2,6 @@ package playgroundOwner;
 
 import admin.Database;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -105,7 +103,7 @@ public class PlaygroundOwnerPanel {
             if (!owner.ownedPlayground.get(i).isSuspended) j++;
             else {
                 System.out.println("--- Playground Number " + Integer.toString(i + 1) + " ---");
-                System.out.println(owner.ownedPlayground.get(i - j).toString());
+                if (!owner.ownedPlayground.get(i - j).isApproved) System.out.println(owner.ownedPlayground.get(i - j).toString());
             }
         }
         System.out.println("Which playground would you like to select ? (Input -1 to return)");
@@ -149,7 +147,7 @@ public class PlaygroundOwnerPanel {
         float _price = scan.nextFloat();
         System.out.print("Period within cancelling a booking is allowed [In days] --> ");
         int _cancel = scan.nextInt();
-        Playground temp = new Playground(_name, _address, true, owner, _size, new ArrayList<LocalDateTime>(), _price, _cancel);
+        Playground temp = new Playground(_name, _address, true, owner, _size, _price, _cancel);
         owner.ownedPlayground.add(temp);
         db.playgroundsDb.add(temp);
     }

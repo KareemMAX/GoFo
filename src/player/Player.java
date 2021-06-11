@@ -2,7 +2,7 @@ package player;
 
 import admin.Database;
 import playgroundOwner.Playground;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * Course: Software Engineering 1 CS251 2020/2021 - Homework 4 Final Draft
  */
 public class Player extends UserStatus{
-    public static int idCount;
+    public static int idCount,idBook;
     public String name, email, phoneNum, defaultLocation;
     public List<Team> favoriteTeam = new ArrayList<>();
     public List<Booking> bookingList = new ArrayList<>();
@@ -57,35 +57,32 @@ public class Player extends UserStatus{
     }
 
     /**
-     * Add new booking
+     * add a new booking
      *
-     * @param reqPlayground the desired playground to book in
-     * @param reqDate       desired date to play
-     * @param reqHours      desired amount of hours to play
+     * @param reqPlayground     Playground to be booked
+     * @param reqDay            Day to be booked
+     * @param reqHours          Hour to be booked
+     * @param amountHours       Number of hours to be booked
+     * @throws Exception
      */
-    public void newBooking(Playground reqPlayground, LocalDateTime reqDate, float reqHours) throws Exception {
-        Boolean aval = false;
-        int i = 0;
-        while (i++ < reqPlayground.availableHours.size()) {
-            if (reqPlayground.availableHours.get(i) == reqDate) {
-                aval = true;
-                break;
+    public void newBooking(Playground reqPlayground, int reqDay, int reqHours, int amountHours) throws Exception {
+        Boolean aval = true;
+        int i = 0,coun = reqHours;
+        while (i++ < amountHours){
+        if(reqPlayground.availableHours.get(reqDay).get(coun++)==0){
+            aval = false;
+            }
+        }if (aval) {
+            Booking book = new Booking(reqPlayground, reqDay, reqHours, amountHours, this, idBook);
+            System.out.println("Booking Id: "+idBook);
+            bookingList.add(idBook++,book);
+            i=0;
+            while (i++ < amountHours){
+                reqPlayground.availableHours.get(reqDay).set(reqHours,0) ;
+                reqHours++;
             }
         }
-        if (aval) {
-           /* System.out.println ("Enter which team id you want to book with.\n");
-            int teamNum;
-            Scanner in = new Scanner (System.in);
-            teamNum = in.nextInt ();*/
-            Booking book = new Booking(reqPlayground, favoriteTeam.get(0), reqDate, reqHours, this, numOfBooking++);
-            System.out.println("The cost is : " + book.getMoney(reqHours));
-            if (eWalletBalance - book.getMoney(reqHours) >= 0) {
-                System.out.println("Current Balance is: " + (eWalletBalance - book.getMoney(reqHours)));
-                eWalletBalance -= book.getMoney(reqHours);
-            } else {
-                throw new Exception("Insufficient funds");
-            }
-        } else {
+         else {
             throw new Exception("The selected date/time is not valid.\n");
         }
 
@@ -97,8 +94,13 @@ public class Player extends UserStatus{
      * @param idBook the id of the booking that is needed to be canceled
      */
     public void cancelBooking(int idBook) throws Exception {
-        if (bookingList.get(idBook).playground.cancellationPeriodDays < 0) {
+        if (bookingList.get(idBook).playground.cancellationPeriodDays > 0) {
             eWalletBalance += bookingList.get(idBook).totalCost;
+            int i=0;
+            while (i++ < bookingList.get(idBook).amount){
+                bookingList.get(idBook).playground.availableHours.get(bookingList.get(idBook).day).set(bookingList.get(idBook).hour, 1);
+                bookingList.get(idBook).hour++;
+            }
             bookingList.remove(idBook);
         } else {
             throw new Exception("Cancellation period is over.");

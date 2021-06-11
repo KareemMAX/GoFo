@@ -2,7 +2,6 @@ package playgroundOwner;
 
 import player.Booking;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class Playground {
     public String size;
     public List<Booking> bookings;
     public Boolean isApproved = false;
-    public List<LocalDateTime> availableHours;
+    public List<List<Integer>> availableHours;
     public float pricePerHour;
     public int cancellationPeriodDays;
 
@@ -32,15 +31,20 @@ public class Playground {
      */
 
     public Playground() {
-        this.availableHours = new ArrayList<LocalDateTime>();
         this.bookings = new ArrayList<Booking>();
+        availableHours = new ArrayList<List<Integer>>();
+        for (int i = 0; i < 7; i++){
+            availableHours.add(new ArrayList<Integer>());
+            for (int j = 0; j < 24; j++){
+                availableHours.get(i).add(1);
+            }
+        }
     }
 
     /**
      * Playground parameterized constructor
      *
      * @param address                String object that indicates the Address of playground
-     * @param availableHours         ArrayList of LocalDateTime object that carries the Hours available for booking
      * @param cancellationPeriodDays Integer value that indicates the period in which bookings are allowed to be canceled in days.
      * @param isSuspended            Boolean value that indicates whether the playground is suspended or not.
      * @param owner                  Player object indicates the owner of the playground
@@ -54,7 +58,6 @@ public class Playground {
                       Boolean isSuspended,
                       PlaygroundOwner owner,
                       String size,
-                      ArrayList<LocalDateTime> availableHours,
                       float pricePerHour,
                       int cancellationPeriodDays) {
         this.playgroundName = playgroundName;
@@ -64,8 +67,13 @@ public class Playground {
         this.size = size;
 
         this.bookings = new ArrayList<Booking>();
-        this.availableHours = new ArrayList<LocalDateTime>();
-        this.availableHours.addAll(availableHours);
+        availableHours = new ArrayList<List<Integer>>();
+        for (int i = 0; i < 7; i++){
+            availableHours.add(new ArrayList<Integer>());
+            for (int j = 0; j < 24; j++){
+                availableHours.get(i).add(1);
+            }
+        }
 
         this.pricePerHour = pricePerHour;
         this.cancellationPeriodDays = cancellationPeriodDays;

@@ -17,16 +17,26 @@ public class Booking {
     public LocalDateTime date;
     public float time;
     public Player player;
-    public int id;
+    public int id,day,hour,amount;
     public float totalCost;
 
-    public Booking(Playground playground, Team players, LocalDateTime date, float time, Player player, int id) {
+    /**
+     * constructor for a book
+     *
+     * @param playground playground to book in
+     * @param day day to book
+     * @param hour start hour to book
+     * @param amount amount of hours to book
+     * @param player player who book
+     * @param id id of booking
+     */
+    public Booking(Playground playground, int day, int hour,int amount , Player player, int id) {
         this.playground = playground;
-        this.players = players;
-        this.date = date;
+        this.day = day;
         this.player = player;
         this.id = id;
-        this.time = time;
+        this.hour = hour;
+        this.amount = amount;
         this.totalCost = getMoney(time);
     }
 

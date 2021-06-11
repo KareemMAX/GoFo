@@ -3,10 +3,6 @@ package player;
 import admin.Database;
 import playgroundOwner.Playground;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -58,18 +54,18 @@ public class UserInterface {
                     int bookChoice = scan.nextInt();
                     switch (bookChoice) {
                         case 1:
-                            System.out.println("Please Enter the playground ID, Date(dd-MM-yyyy), and number of hours");
-                            int ID = scan.nextInt(), hours;
+                            System.out.println("Please Enter the playground ID, number of hours");
+                            int ID = scan.nextInt();
+                            int hours = scan.nextInt();
                             Playground bookPG = db.playgroundsDb.get(ID-1);
-
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
-                            LocalDate date = LocalDate.parse(scan.next(), formatter);
-                            LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(0,0,0,0));
-                            hours = scan.nextInt();
+                            System.out.println("Choose the day and hour");
+                            System.out.println("1. Saturday\n2. Sunday\n3. Monday\n4. Tuesday\n5. Wednesday\n6. Thursday\n7. Friday");
+                            int day = scan.nextInt() - 1;
+                            int hour = scan.nextInt() - 1;
                             try {
-                                player.newBooking(bookPG, dateTime, hours);
+                                player.newBooking(bookPG, day, hour, hours);
                             } catch (Exception e) {
-                                System.out.println(e.toString());
+                                System.out.println(e.getMessage());
                             }
                             break;
                         case 2:
@@ -78,7 +74,7 @@ public class UserInterface {
                             try {
                                 player.cancelBooking(bookID);
                             } catch (Exception e) {
-                                System.out.println(e.toString());
+                                System.out.println(e.getMessage());
                             }
                             break;
                     }
@@ -90,7 +86,7 @@ public class UserInterface {
                     try {
                         player.sendFunds(db.playersDb.get(pID), money);
                     } catch (Exception e) {
-                        System.out.println(e.toString());
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case 5:
