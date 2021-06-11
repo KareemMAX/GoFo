@@ -79,18 +79,15 @@ public class Playground {
 
     @Override
     public String toString() {
-        return "Playground{" +
-                "playgroundName='" + playgroundName + '\'' +
-                ", address='" + address + '\'' +
-                ", isSuspended=" + isSuspended +
-                ", owner=" + owner +
-                ", size='" + size + '\'' +
-                ", bookings=" + bookings.toString() +
-                ", isApproved=" + isApproved +
-                ", availableHours=" + availableHours.toString() +
-                ", pricePerHour=" + pricePerHour +
-                ", cancellationPeriodDays=" + cancellationPeriodDays +
-                '}';
+        return "playgroundName: " + playgroundName + '\n' +
+                "address: " + address + '\n' +
+                "isSuspended: " + isSuspended + '\n' +
+                "owner: " + owner.toString() + '\n' +
+                "size: " + size + '\n' +
+                "isApproved: " + isApproved + '\n' +
+                "availableHours: " + availableHours.toString() + '\n' +
+                "pricePerHour: " + pricePerHour + '\n' +
+                "cancellationPeriodDays: " + cancellationPeriodDays + '\n';
     }
 
 }

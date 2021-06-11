@@ -31,7 +31,10 @@ public class Main {
         while (true){
             System.out.println("--- GoFo application ---");
             System.out.println("------------------------------");
-            System.out.println("1. Login");
+            if(userPlayer == null)
+                System.out.println("1. Login");
+            else
+                System.out.println("1. Logout");
             System.out.println("2. Register a player");
             System.out.println("3. Player panel");
             System.out.println("4. Playground Owner panel");
@@ -40,7 +43,10 @@ public class Main {
             int choice = scanner.nextInt();
             switch (choice){
                 case 1:
-                    login();
+                    if(userPlayer == null)
+                        login();
+                    else
+                        userPlayer = null;
                     break;
                 case 2:
                     register();
@@ -49,7 +55,10 @@ public class Main {
                     new UserInterface(userPlayer);
                     break;
                 case 4:
-                    new PlaygroundOwnerPanel(userOwner);
+                    if(userPlayer instanceof PlaygroundOwner)
+                        new PlaygroundOwnerPanel((PlaygroundOwner) userPlayer);
+                    else
+                        new PlaygroundOwnerPanel(null);
                     break;
                 case 5:
                     new AdminPanel().show();
@@ -76,11 +85,11 @@ public class Main {
         System.out.println("Enter your default location");
         String loc = scanner.nextLine();
 
-        System.out.println("Would you like to register as a playerground owner ? (Y/N)");
+        System.out.println("Would you like to register as a playground owner ? (Y/N)");
 
-        if (scanner.nextLine().equals("Y")){
+        if (scanner.nextLine().equalsIgnoreCase("Y")){
             PlaygroundOwner x = new PlaygroundOwner(pw, name, email, num, loc);
-            userOwner = x;
+            userPlayer = x;
             db.playersDb.add(x);
         }
         else{
@@ -105,6 +114,7 @@ public class Main {
                 break;
             }
         }
+
         if (!flag){
             System.out.println("Username used in not in our database");
             return;
@@ -113,12 +123,7 @@ public class Main {
             System.out.println("Enter your password");
             String pw = scanner.nextLine();
             if (possibleUser.password.equals(pw)){
-                if (possibleUser.currentStatus == UserStatus.status.player){
-                    userPlayer = possibleUser;
-                }
-                else{
-                    userOwner = (PlaygroundOwner) possibleUser;
-                }
+                userPlayer = possibleUser;
             }
         }
     }

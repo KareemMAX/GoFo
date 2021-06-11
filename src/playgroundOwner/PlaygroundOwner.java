@@ -60,6 +60,13 @@ public class PlaygroundOwner extends Player {
         currentStatus = status.owner;
     }
 
+    @Override
+    public String toString() {
+        return "name: " + name + '\n' +
+                "email: " + email + '\n' +
+                "phoneNum: " + phoneNum + '\n';
+    }
+
     /**
      * PlaygroundOwner constructor with a player object. Upgrades player to playground owner.
      *

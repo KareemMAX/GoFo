@@ -44,7 +44,8 @@ public class AdminPanel {
      */
     private void onClickShowAllPlaygrounds() {
         for (int i = 0; i < database.playgroundsDb.size(); i++) {
-            System.out.print(i);
+            System.out.print("Playground number ");
+            System.out.print(i+1);
             System.out.println("-");
             System.out.println(database.playgroundsDb.get(i));
         }
@@ -58,7 +59,8 @@ public class AdminPanel {
     private void onClickShowPendingPlaygrounds() {
         for (int i = 0; i < database.playgroundsDb.size(); i++) {
             if (!database.playgroundsDb.get(i).isApproved) {
-                System.out.print(i);
+                System.out.print("Playground number ");
+                System.out.print(i+1);
                 System.out.println("-");
                 System.out.println(database.playgroundsDb.get(i));
             }
@@ -74,7 +76,7 @@ public class AdminPanel {
         System.out.println("Choose a playground ID to edit or -1 to exit:");
         int playgroundId = input.nextInt();
         if (playgroundId == -1) return;
-        Playground pg = database.playgroundsDb.get(playgroundId);
+        Playground pg = database.playgroundsDb.get(playgroundId - 1);
 
         System.out.println(pg);
         System.out.println("Choose an operation:");

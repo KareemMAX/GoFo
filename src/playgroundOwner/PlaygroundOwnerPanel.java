@@ -26,6 +26,11 @@ public class PlaygroundOwnerPanel {
      */
 
     public PlaygroundOwnerPanel(PlaygroundOwner owner) {
+        if(owner == null) {
+            System.out.println("Playground owner is not logged!!");
+            return;
+        }
+
         db = Database.getInstance();
         for (int i = 0; i < db.playersDb.size(); i++){
             if (owner.name.equals(db.playersDb.get(i).name)) this.owner = (PlaygroundOwner) db.playersDb.get(i);
@@ -37,7 +42,7 @@ public class PlaygroundOwnerPanel {
             System.out.println("1. List Owned Playgrounds");
             System.out.println("2. List Suspended Playgrounds");
             System.out.println("3. Add a New Playground");
-            System.out.println("4. Return to Player Panel");
+            System.out.println("4. Return");
             int choice = scan.nextInt();
             switch (choice) {
                 case 1:
@@ -113,7 +118,6 @@ public class PlaygroundOwnerPanel {
                 if (db.playgroundsDb.get(i).equals(playgroundOfInterest)) dbIndexOfInterset = i;
             }
 
-            //TODO for Debug purposes
             if (dbIndexOfInterset == -1) System.out.println("CRITICAL ERROR MISSING PLAYGROUND FROM DB");
 
             System.out.println("1.Delete Playground");

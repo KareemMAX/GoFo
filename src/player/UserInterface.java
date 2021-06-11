@@ -3,7 +3,10 @@ package player;
 import admin.Database;
 import playgroundOwner.Playground;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -20,6 +23,11 @@ public class UserInterface {
      * Entry point of the Player's panel
      */
     public UserInterface(Player player) {
+        if(player == null) {
+            System.out.println("Player is not logged in!!");
+            return;
+        }
+
         this.player = player;
         db = Database.getInstance();
         scan = new Scanner(System.in);
@@ -31,7 +39,7 @@ public class UserInterface {
             System.out.println("3. Booking menu");
             System.out.println("4. Send funds");
             System.out.println("5. Check balance");
-            System.out.println("7. Exit");
+            System.out.println("6. Exit");
             int choice = scan.nextInt();
             switch (choice) {
                 case 1:
@@ -50,14 +58,16 @@ public class UserInterface {
                     int bookChoice = scan.nextInt();
                     switch (bookChoice) {
                         case 1:
-                            System.out.println("Please Enter the playground ID, Date, and number of hours");
+                            System.out.println("Please Enter the playground ID, Date(dd-MM-yyyy), and number of hours");
                             int ID = scan.nextInt(), hours;
-                            Playground bookPG = db.playgroundsDb.get(ID);
-                            //msh 3aref htsht8l wla la2
-                            LocalDateTime date = LocalDateTime.parse(scan.next());
+                            Playground bookPG = db.playgroundsDb.get(ID-1);
+
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+                            LocalDate date = LocalDate.parse(scan.next(), formatter);
+                            LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(0,0,0,0));
                             hours = scan.nextInt();
                             try {
-                                player.newBooking(bookPG, date, hours);
+                                player.newBooking(bookPG, dateTime, hours);
                             } catch (Exception e) {
                                 System.out.println(e.toString());
                             }
@@ -72,6 +82,7 @@ public class UserInterface {
                             }
                             break;
                     }
+                    break;
                 case 4:
                     System.out.println("Enter the player ID you want to transfer money to, and the amount of money.");
                     int pID = scan.nextInt();
@@ -81,6 +92,7 @@ public class UserInterface {
                     } catch (Exception e) {
                         System.out.println(e.toString());
                     }
+                    break;
                 case 5:
                     System.out.println("Balance: " + player.eWalletBalance);
                     break;
